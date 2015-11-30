@@ -37,6 +37,9 @@ public class Snake {
 
         screen.getLoginPanel().addActionlistener(new LoginPanelActionListener());
         screen.getGameMenu().addActionListener(new GameMenuActionListener());
+        screen.getPlayPanel().addActionListener(new PlayPanelActionListener());
+        screen.getCreateGamePanel().addActionListener(new CreateGamePanelActionListener());
+        screen.getJoinGamePanel().addActionListener(new JoinGamePanelActionListener());
         screen.getDeletePanel().addActionListener(new DeletePanelActionListener());
         screen.show(screen.LOGINPANEL);
 
@@ -123,7 +126,7 @@ public class Snake {
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-            if(cmd.equals("PlayPanelBtn")) // if actioncommand is "PlayPanelBtn"
+            if(cmd.equals("PlayBtn")) // if actioncommand is "PlayPanelBtn"
             {
                 screen.getPlayPanel();
                 screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
@@ -148,6 +151,70 @@ public class Snake {
     } // class ends.
 
 
+    private class PlayPanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+            String cmd = e.getActionCommand();
+
+            if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+                screen.getJoinGamePanel();
+                screen.show(Screen.JOINGAMEPANEL);
+
+            }
+            if (cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+                screen.getCreateGamePanel();
+                screen.show(Screen.CREATEGAMEPANEL);
+            }
+        }
+
+    }
+        private class CreateGamePanelActionListener implements ActionListener // class that has actionlistener
+        {
+            public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+            {
+                String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+                if(cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+                {
+                    // paymentpanel is in the window
+                } // if ends
+
+                if(cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                {
+                    //userAuthenticated = false; // brugerauthorization sets false
+                    screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                    screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+                } // if ends
+            } // Method ends
+        } // class ends.
+
+
+
+    private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+            if(cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+                // paymentpanel is in the window
+            } // if ends
+
+            if(cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            {
+                //userAuthenticated = false; // brugerauthorization sets false
+                screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+            } // if ends
+        } // Method ends
+    } // class ends.
+
+
+
     private class DeletePanelActionListener implements ActionListener // class that has actionlistener
     {
         public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
@@ -168,6 +235,9 @@ public class Snake {
             } // if ends
         } // Method ends
     } // class ends.
+
+
+
 
 
 

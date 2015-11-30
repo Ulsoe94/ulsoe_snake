@@ -3,7 +3,6 @@ package Gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -41,12 +40,12 @@ public class PlayPanel extends JLabel {
 
 
 
-        btnBack = new JButton("Log out");
+        btnBack = new JButton("back");
         btnBack.setBackground(Color.LIGHT_GRAY);
         btnBack.setForeground(new Color(0, 0, 0));
         btnBack.setFont(new Font("Raleway", Font.BOLD, 12));
         btnBack.setBounds(20, 450, 150, 30);
-        btnBack.setActionCommand("Log out");
+        btnBack.setActionCommand("Back");
         add(btnBack);
 
         lblPlayPanel = new JLabel("Game Menu");
@@ -76,14 +75,14 @@ public class PlayPanel extends JLabel {
         btnJoinGame.setActionCommand("JoinGameBtn"); // adds actioncommand
         btnCreateGame.addActionListener(l);
         btnCreateGame.setActionCommand("CreateGameBtn");
-        btnSeeHighscore.addActionListener(l);
-        btnSeeHighscore.setActionCommand("SeeHighscoreBtn");
-        btnLogOut.addActionListener(l);
-        btnLogOut.setActionCommand("LogOutBtn");
+        btnBack.addActionListener(l);
+        btnBack.setActionCommand("BackBtn");
     }
 
 }
 
 
 
-}
+
+
+

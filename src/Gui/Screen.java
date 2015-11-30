@@ -18,12 +18,13 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     public static final String ADMINEDIT = "2";
     public static final String ADMINSIDE = "3";
     public static final String LOGINPANEL = "4";
-    public static final String USERDEPOSIT = "5";
+    public static final String CREATEGAMEPANEL = "5";
     public static final String GAMEMENU = "6";
     public static final String DELETEPANEL = "7";
     public static final String PLAYPANEL = "8";
     public static final String HIGHSCORE = "9";
-    public static final String RECIPIENTSIDE = "10";
+    public static final String JOINGAMEPANEL = "10";
+
 
     // Variables
     private JPanel contentPane;
@@ -33,6 +34,8 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     private PlayPanel playPanel;
     private Highscore highscore;
     private DeletePanel deletePanel;
+    private CreateGamePanel createGamePanel;
+    private JoinGamePanel joinGamePanel;
 
 
     CardLayout c; //variabel for cardlayout
@@ -57,7 +60,13 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         contentPane.add(gameMenu, GAMEMENU);
 
         playPanel = new PlayPanel();
-        //contentPane.add(playPanel, PLAYPANEL);
+        contentPane.add(playPanel, PLAYPANEL);
+
+        joinGamePanel = new JoinGamePanel();
+        contentPane.add(joinGamePanel, JOINGAMEPANEL);
+
+        createGamePanel = new CreateGamePanel();
+        contentPane.add(createGamePanel, CREATEGAMEPANEL);
 
         deletePanel = new DeletePanel();
         contentPane.add(deletePanel, DELETEPANEL);
@@ -76,17 +85,19 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     /**
      * @return loginSide
      */
-    public LoginPanel getLoginPanel() {
-        return loginPanel; // returns loginPanel
+    public LoginPanel getLoginPanel() { return loginPanel; // returns loginPanel
     }
 
-    public GameMenu getGameMenu() {
-        return gameMenu;
+    public GameMenu getGameMenu() { return gameMenu;
     }
 
     public PlayPanel getPlayPanel() {
         return playPanel;
     }
+
+    public CreateGamePanel getCreateGamePanel() { return createGamePanel; }
+
+    public JoinGamePanel getJoinGamePanel() { return joinGamePanel; }
 
     public DeletePanel getDeletePanel() {
         return deletePanel;
