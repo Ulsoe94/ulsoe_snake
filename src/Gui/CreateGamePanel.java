@@ -22,6 +22,9 @@ public class CreateGamePanel extends JPanel {
     private JTextField JtxtGameName;
     private JTextField JtxtMovement;
 
+    private String Movement;
+    private String GameName;
+
 
     public CreateGamePanel() {
         setLayout(null);
@@ -44,7 +47,6 @@ public class CreateGamePanel extends JPanel {
         lblEnterMovements.setFont(new Font("Raleway", Font.PLAIN, 13));
         lblEnterMovements.setBounds(20, 235, 400, 34);
         add(lblEnterMovements);
-
 
 
         //JButtons
@@ -87,9 +89,21 @@ public class CreateGamePanel extends JPanel {
         } // try ends
         catch (IOException ex) {
         }
+    }
+
+public String getMovement() {
+        Movement = JtxtMovement.getText();
+        return Movement;
+    }
+    public String getGameName() {
+        GameName = JtxtGameName.getText();
+        return GameName;
 
 
     }
+
+
+
 
     public void addActionListener (ActionListener l){
         btnCreateGame.addActionListener(l);

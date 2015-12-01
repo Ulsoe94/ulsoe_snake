@@ -1,68 +1,83 @@
 package SDK;
 
-import java.util.Date;
-
 /**
  * Created by Ulso on 23/11/15.
  */
 public class Game {
-
+    //Creating the variables needed for the game
     private int gameId;
-    private int result;
-    private int newGame;
-    private int endGame;
+    private Gamer winner;
     private String name;
-    private String hostControls;
-    private User host;
-    private User opponent;
-    private String opponentControls;
-    private int status;
-    private Date created;
+    private Gamer host;
+    private Gamer opponent;
+    private String status;
+    private java.sql.Date created;
+    private int mapSize;
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public Game(){}
+
+    public java.sql.Date getCreated() {
+        return created;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setCreated(java.sql.Date created) {
+        this.created = created;
     }
 
-    public void setNewGame(int newGame) {
-        this.newGame = newGame;
+    public int getMapSize() {
+        return mapSize;
     }
 
-    public void setEndGame(int endGame) {
-        this.endGame = endGame;
+    public void setMapSize(int mapSize) {
+        this.mapSize = mapSize;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setHostControls(String hostControls) {
-        this.hostControls = hostControls;
+    //Creating get/set method for all the variables, so they can be used by other classes
+    public int getGameId(){
+        return gameId;
     }
 
-    public void setHost(User host) {
+    public void setGameId(int gameId){
+        this.gameId = gameId;
+    }
+
+    public Gamer getHost(){
+        return host;
+    }
+
+    public void setHost(Gamer host){
         this.host = host;
     }
 
-    public void setOpponent(User opponent) {
+    public Gamer getOpponent(){
+        return opponent;
+    }
+
+    public void setOpponent(Gamer opponent){
         this.opponent = opponent;
     }
 
-    public void setOpponentControls(String opponentControls) {
-        this.opponentControls = opponentControls;
+    public String getStatus(){
+        return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status){
         this.status = status;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public Gamer getWinner() {
+        return winner;
     }
 
-
-
-}
+    public void setWinner(Gamer winner) {
+        this.winner = winner;
+    }
+} //end of class

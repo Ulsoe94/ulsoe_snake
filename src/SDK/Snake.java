@@ -19,7 +19,7 @@ public class Snake {
 
 
     private Screen screen;
-
+    private User thisuser;
 
 
     public Snake() {
@@ -27,10 +27,6 @@ public class Snake {
         screen = new Screen();
         screen.setVisible(true);
     }
-
-
-
-
 
 
     public void run() {
@@ -59,12 +55,13 @@ public class Snake {
                 String username = screen.getLoginPanel().getUsername();
                 String password = screen.getLoginPanel().getPassword();
 
-                User user = new User();
+                thisuser = new User();
 
-                user.setUsername(username);
-                user.setPassword(password);
 
-                String json = new Gson().toJson(user);
+                thisuser.setUsername(username);
+                thisuser.setPassword(password);
+
+                String json = new Gson().toJson(thisuser);
 
                 ServerConnection con = new ServerConnection();
                 ClientResponse response = con.post(json, "login");
@@ -93,7 +90,7 @@ public class Snake {
                 }
 
 
-        }
+            }
             /**authenticateuser(); // runs the method authenticate user
              screen.getLoginSide().reset(); // resets labels at loginpanel
 
@@ -126,22 +123,22 @@ public class Snake {
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-            if(cmd.equals("PlayBtn")) // if actioncommand is "PlayPanelBtn"
+            if (cmd.equals("PlayBtn")) // if actioncommand is "PlayPanelBtn"
             {
                 screen.getPlayPanel();
                 screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
             } // if ends
-            if(cmd.equals("DeletePanelBtn")) // if actioncommand is "DeleteGameBtn"
+            if (cmd.equals("DeletePanelBtn")) // if actioncommand is "DeleteGameBtn"
             {
                 screen.getDeletePanel();
                 screen.show(Screen.DELETEPANEL); // insertspanel sets in the window
             } // if slutter
-            if(cmd.equals("HighScoreBtn")) // hvis actioncommand er "WithdrawBtn"
+            if (cmd.equals("HighScoreBtn")) // hvis actioncommand er "WithdrawBtn"
             {
                 screen.getHighscore();
                 screen.show(Screen.HIGHSCORE); // udtr�kningspanel s�ttes i vindue
             } // if ends
-            if(cmd.equals("LogOutBtn")) // if actioncommand is "LogOutBtn"
+            if (cmd.equals("LogOutBtn")) // if actioncommand is "LogOutBtn"
             {
 
                 screen.getLoginPanel(); // reset method runs and removes labels from userpanel
@@ -171,18 +168,60 @@ public class Snake {
         }
 
     }
-        private class CreateGamePanelActionListener implements ActionListener // class that has actionlistener
+
+    private class CreateGamePanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+            if (cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+                Gamer host = new Gamer();
+                host.setId(thisuser.getId());
+                host.setControls(screen.getCreateGamePanel().getMovement());
+
+                Game game = new Game();
+                game.setName(screen.getCreateGamePanel().getGameName());
+                game.setHost(host);
+                game.setMapSize(20);
+
+                String json = new Gson().toJson(game);
+
+                ServerConnection con = new ServerConnection();
+                ClientResponse response = con.post(json, "games");
+
+                if (response.getStatus() == 201) {
+                    System.out.println("Game created");
+
+
+                }
+                if (response.getStatus() == 400) {
+                    System.out.println("Something went wrong");
+
+                }
+                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                {
+                    //userAuthenticated = false; // brugerauthorization sets false
+                    screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                    screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+                } // if ends
+            } // Method ends
+        } // class ends.
+
+    }
+        private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
         {
             public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
             {
                 String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-                if(cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+                if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
                 {
                     // paymentpanel is in the window
                 } // if ends
 
-                if(cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
                 {
                     //userAuthenticated = false; // brugerauthorization sets false
                     screen.getGameMenu(); // reset method runs and removes labels from userpanel
@@ -192,61 +231,32 @@ public class Snake {
         } // class ends.
 
 
-
-    private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
-    {
-        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        private class DeletePanelActionListener implements ActionListener // class that has actionlistener
         {
-            String cmd = e.getActionCommand(); // local string that saves actioncommand
-
-            if(cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
             {
-                // paymentpanel is in the window
-            } // if ends
+                String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-            if(cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
-            {
-                //userAuthenticated = false; // brugerauthorization sets false
-                screen.getGameMenu(); // reset method runs and removes labels from userpanel
-                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
-            } // if ends
-        } // Method ends
-    } // class ends.
+                if (cmd.equals("DeleteGameBtn")) // if actioncommand is "PlayPanelBtn"
+                {
+                    //screen.getGameMenu().reset();
+                    //screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
+                } // if ends
 
-
-
-    private class DeletePanelActionListener implements ActionListener // class that has actionlistener
-    {
-        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
-        {
-            String cmd = e.getActionCommand(); // local string that saves actioncommand
-
-            if(cmd.equals("DeleteGameBtn")) // if actioncommand is "PlayPanelBtn"
-            {
-                //screen.getGameMenu().reset();
-                //screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
-            } // if ends
-
-            if(cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
-            {
-                //userAuthenticated = false; // brugerauthorization sets false
-                screen.getGameMenu(); // reset method runs and removes labels from userpanel
-                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
-            } // if ends
-        } // Method ends
-    } // class ends.
+                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                {
+                    //userAuthenticated = false; // brugerauthorization sets false
+                    screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                    screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+                } // if ends
+            } // Method ends
+        } // class ends.
 
 
-
-
-
-
-
-    /**if (response.getStatus() != 200 && response.getStatus() != 201){
-        throw new RuntimeException("Failed : HTTP error code : "
-                + response.getStatus());
-    }*/
-
+        /**if (response.getStatus() != 200 && response.getStatus() != 201){
+         throw new RuntimeException("Failed : HTTP error code : "
+         + response.getStatus());
+         }*/
 
 
 
