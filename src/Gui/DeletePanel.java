@@ -3,7 +3,6 @@ package Gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -28,12 +27,12 @@ import java.io.IOException;
         public DeletePanel() {
             setLayout(null);
 
+            //JLabels
             lblDeletePanel = new JLabel("Delete Panel");
             lblDeletePanel.setForeground(new Color(0, 200, 0));
             lblDeletePanel.setFont(new Font("Raleway", Font.BOLD, 20));
             lblDeletePanel.setBounds(20, 34, 400, 35);
             add(lblDeletePanel);
-
 
             lblEnterGameID = new JLabel("Enter GameID");
             lblEnterGameID.setForeground(new Color(0, 200, 0));
@@ -41,6 +40,7 @@ import java.io.IOException;
             lblEnterGameID.setBounds(70, 220, 400, 100);
             add(lblEnterGameID);
 
+            //JTextfields
             gameID = new JTextField();
             gameID.setFont(new Font("Raleway", Font.PLAIN, 13));
             gameID.setBounds(20, 280, 200, 34);
@@ -57,18 +57,11 @@ import java.io.IOException;
             add(btnDeleteGame);
 
             btnBack = new JButton("Back");
-            btnBack.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                }
-            });
             btnBack.setFont(new Font("Raleway", Font.PLAIN, 15));
             btnBack.setForeground(new Color(0, 0, 0));
             btnBack.setBackground(Color.LIGHT_GRAY);
             btnBack.setBounds(20, 450, 150, 30);
-            btnBack.setActionCommand("Back");
             add(btnBack);
-
-
 
 
 
@@ -82,14 +75,16 @@ import java.io.IOException;
             } // try ends
             catch (IOException ex) {
             }
+        }
 
-
+        //getters
+        public String getGameID()
+        {
+            return gameID.getText();
 
         }
 
-
-
-
+        //action listeners for the buttons
         public void addActionListener(ActionListener l) {
             btnDeleteGame.addActionListener(l);
             btnDeleteGame.setActionCommand("DeleteGameBtn"); // adds actioncommand
@@ -98,12 +93,7 @@ import java.io.IOException;
         }
 
 
-        public String getGameID()
 
-        {
-            return gameID.getText();
-
-        }
 
 
 

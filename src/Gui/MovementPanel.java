@@ -8,46 +8,47 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * Created by Ulso on 23/11/15.
+ * Created by Ulso on 04/12/15.
  */
-public class PlayPanel extends JLabel {
+public class MovementPanel extends JPanel {
 
-    private JButton btnCreateGame;
-    private JButton btnJoinGame;;
-    private JButton btnBack;
-    private JLabel lblPlayPanel;
+    private JLabel lblMovmenetPanel;
+    private JLabel lblEnterMovement;
+    //private JLabel lblEnterMovement;
     private JLabel lblBackground;
+    private JTextField txtMovement;
+    // private JTextField txtMovement;
+    private JButton btnJoinGame;
+    private JButton btnBack;
+    private String movement;
 
 
 
-    public PlayPanel() {
+
+    public MovementPanel() {
         setLayout(null);
 
-        //JLabels
-        lblPlayPanel = new JLabel("Game Menu");
-        lblPlayPanel.setFont(new Font("Raleway", Font.BOLD, 20));
-        lblPlayPanel.setForeground(new Color(0, 200, 0));
-        lblPlayPanel.setBounds(20, 34, 400, 35);
-        add(lblPlayPanel);
+        //Jlabels
+        lblMovmenetPanel = new JLabel("Movement");
+        lblMovmenetPanel.setForeground(new Color(0, 200, 0));
+        lblMovmenetPanel.setFont(new Font("Raleway", Font.BOLD, 25));
+        lblMovmenetPanel.setBounds(20, 43, 400, 34);
+        add(lblMovmenetPanel);
 
-        //Jbuttons
-        btnCreateGame = new JButton("Create Game");
-        btnCreateGame.setBackground(Color.LIGHT_GRAY);
-        btnCreateGame.setFont(new Font("Raleway", Font.PLAIN, 13));
-        btnCreateGame.setBounds(20, 230, 200, 43);
-        btnCreateGame.setActionCommand("Play Game");
-        add(btnCreateGame);
+        lblMovmenetPanel = new JLabel("Enter your movement:");
+        lblMovmenetPanel.setForeground(new Color(0, 200, 0));
+        lblMovmenetPanel.setFont(new Font("Raleway", Font.PLAIN, 13));
+        lblMovmenetPanel.setBounds(20, 175, 400, 34);
+        add(lblMovmenetPanel);
 
         btnJoinGame = new JButton("Join Game");
         btnJoinGame.setBackground(Color.LIGHT_GRAY);
         btnJoinGame.setFont(new Font("Raleway", Font.PLAIN, 13));
-        btnJoinGame.setBounds(20, 280, 200, 43);
-        btnJoinGame.setActionCommand("Delete Panel");
+        btnJoinGame.setBounds(20, 330, 170, 43);
+        btnJoinGame.setActionCommand("Join Game");
         add(btnJoinGame);
 
-
-
-        btnBack = new JButton("back");
+        btnBack = new JButton("Back");
         btnBack.setBackground(Color.LIGHT_GRAY);
         btnBack.setForeground(new Color(0, 0, 0));
         btnBack.setFont(new Font("Raleway", Font.BOLD, 12));
@@ -55,7 +56,11 @@ public class PlayPanel extends JLabel {
         btnBack.setActionCommand("Back");
         add(btnBack);
 
-
+        txtMovement = new JTextField();
+        txtMovement.setFont(new Font("Raleway", Font.PLAIN, 13));
+        txtMovement.setBounds(20, 200, 170, 30);
+        txtMovement.setColumns(10);
+        add(txtMovement);
 
         try // tries to load image
         {
@@ -67,24 +72,27 @@ public class PlayPanel extends JLabel {
         } // try ends
         catch (IOException ex) {
         }
-
-
-
-
     }
-    //actionlisteners
-    public void addActionListener(ActionListener l){
+
+
+public String getMovement() {
+    movement = txtMovement.getText();
+    return movement;
+}
+
+
+
+
+    public void addActionListener (ActionListener l){
         btnJoinGame.addActionListener(l);
         btnJoinGame.setActionCommand("JoinGameBtn"); // adds actioncommand
-        btnCreateGame.addActionListener(l);
-        btnCreateGame.setActionCommand("CreateGameBtn");
+
         btnBack.addActionListener(l);
         btnBack.setActionCommand("BackBtn");
     }
 
+
 }
-
-
 
 
 

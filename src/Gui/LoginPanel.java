@@ -99,6 +99,7 @@ public class LoginPanel extends JPanel {
 
     }
 
+    //adds music to the background
     /**
      * try {
      * File file = new File("/Users/Ulso/Documents/window builder/src/Pictures/Bam.wav");
@@ -111,7 +112,7 @@ public class LoginPanel extends JPanel {
      */
 
 
-// constructor ends
+    //Actionlisteners
     public void addActionlistener(ActionListener l) {
         btnLogin.addActionListener(l); // adds actionlistener
         btnLogin.setActionCommand("LoginBtn"); // adds actioncommand

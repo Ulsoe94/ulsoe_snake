@@ -37,6 +37,7 @@ public class Snake {
         screen.getJoinGamePanel().addActionListener(new JoinGamePanelActionListener());
         screen.getDeletePanel().addActionListener(new DeletePanelActionListener());
         screen.getHighscorePanel().addActionListener(new HighscorePanelActionListener());
+        screen.getMovementPanel().addActionListener(new MovementPanelActionListener());
         screen.show(screen.LOGINPANEL);
 
     }
@@ -79,11 +80,11 @@ public class Snake {
                     JOptionPane.showMessageDialog(screen, "The request could not be understood by the server due to malformed syntax");
                     screen.show(Screen.LOGINPANEL);
                 }
-                if (response.getStatus() == 401) {
+                if (response.getStatus() == 400) {
 
                     authenticated = false;
                     System.out.println("Unauthorized");
-                    JOptionPane.showMessageDialog(screen, "User could not be authorized");
+                    JOptionPane.showMessageDialog(screen, "You have entered either a wrong username og password. Please try again");
                     screen.show(Screen.LOGINPANEL);
 
                 }
@@ -135,7 +136,7 @@ public class Snake {
             if (cmd.equals("HighscoreBtn")) // if action command is "HighScoreBtn"
             {
 
-                Score[] highScores = connection.getHighscore();
+                Score[] highScores = connection.Highscore();
 
                 screen.getHighscorePanel();
                 screen.show(Screen.HIGHSCOREPANEL); // Highscore sets in the window
@@ -213,6 +214,8 @@ public class Snake {
                     System.out.println("Game created");
 
                     JOptionPane.showMessageDialog(screen, "Game " + game.getName() + " was created succesfully");
+                    screen.getGameMenu();
+                    screen.show(Screen.GAMEMENU);
 
 
                 }
@@ -239,20 +242,76 @@ public class Snake {
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-            if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            int gameID = screen.getJoinGamePanel().getGameID();
+            Gamer opponent = new Gamer();
+            opponent.setId(1);
+
+            Game game = new Game();
+            game.setOpponent(opponent);
+            game.setGameId(gameID);
+
+
+
+            if (cmd.equals("ProceedBtn")) // if actioncommand is "PlayPanelBtn"
             {
+                boolean join = connection.joinGame(game);
+
+                if (join) {screen.getMovementPanel();
+                    screen.show(Screen.MOVEMENTPANEL);
+                    JOptionPane.showMessageDialog(screen,"succesfully joined" + gameID);
 
 
-                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                }
+                else {
+                    JOptionPane.showMessageDialog(screen, "Failed to join game");
+                }
+
+            }
+
+            if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
                 {
 
                     screen.getGameMenu(); // reset method runs and removes labels from userpanel
                     screen.show(Screen.GAMEMENU); // loginpanel sets in the window
                 } // if ends
             } // Method ends
-        } // class ends.
+         // class ends.
     }
 
+
+    private class MovementPanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+
+            int gameID = screen.getJoinGamePanel().getGameID();
+            Gamer opponent = new Gamer();
+            opponent.setId(1);
+            opponent.setControls(screen.getMovementPanel().getMovement());
+
+            Game game = new Game();
+            game.setOpponent(opponent);
+            game.setGameId(gameID);
+
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+            if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+                connection.startGame(game);
+
+
+                screen.show(Screen.GAMEMENU);
+            }
+
+            if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            {
+
+                screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+            } // if ends
+        } // Method ends
+        // class ends.
+    }
         private class DeletePanelActionListener implements ActionListener // class that has actionlistener
         {
             public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
@@ -290,13 +349,22 @@ public class Snake {
         public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
+            if (cmd.equals("RefreshBtn"))
+            {
+
+                screen.getHighscorePanel().clearHighscore();
+                Score[] highScores = connection.Highscore();
+
+                screen.getHighscorePanel();
+                screen.show(Screen.HIGHSCOREPANEL); // Highscore sets in the window
+                screen.getHighscorePanel().highScoreTable(highScores);
 
 
-
+            }
 
             if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
             {
-                //userAuthenticated = false; // brugerauthorization sets false
+                screen.getHighscorePanel().clearHighscore();
                 screen.getGameMenu(); // reset method runs and removes labels from userpanel
                 screen.show(Screen.GAMEMENU); // loginpanel sets in the window
             } // if ends

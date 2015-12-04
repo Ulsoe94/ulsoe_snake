@@ -16,6 +16,7 @@ public class Game {
 
     public Game(){}
 
+    //getters and setters
     public java.sql.Date getCreated() {
         return created;
     }
@@ -40,7 +41,6 @@ public class Game {
         this.name = name;
     }
 
-    //Creating get/set method for all the variables, so they can be used by other classes
     public int getGameId(){
         return gameId;
     }

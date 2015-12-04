@@ -23,17 +23,13 @@ public class ServerConnection {
         return hostAddress;
     }
 
-    public void setHostAddress(String hostAddress) {
-        this.hostAddress = hostAddress;
-    }
-
     public int getPort() {
         return port;
     }
 
 
 
-
+    //Method get.
     public String get(String path){
 
         Client client = Client.create();
@@ -51,8 +47,8 @@ public class ServerConnection {
     }
 
 
+    //method post
     public ClientResponse post(String json, String path){
-
 
         Client client = Client.create();
 
@@ -63,7 +59,8 @@ public class ServerConnection {
         return response;
     }
 
-    private String put(String json, String path) {
+    //method put
+    public String put(String json, String path) {
         Client client = Client.create();
 
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
@@ -78,8 +75,8 @@ public class ServerConnection {
 
     }
 
-
-    private String delete(String path){
+    //method delete
+    public String delete(String path){
         Client client = Client.create();
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
         ClientResponse response = webResource.type("application/json").delete(ClientResponse.class);
@@ -94,13 +91,23 @@ public class ServerConnection {
 
     }
 
+    public boolean joinGame(Game game){
+        String path = "games/join/";
+        String data = new Gson().toJson(game, Game.class);
+
+        try {
+            put(data, path);
+        }
+        catch ( Exception ex) {
+            return false;
+        }
+        return true;
+    }
 
 
 
-
-
-
-    public  Score[] getHighscore() {
+    //method getHighscore
+    public  Score[] Highscore() {
         String path = "scores/";
         String response;
         try {
@@ -124,6 +131,20 @@ public class ServerConnection {
         return true;
     }
 
+    public Game startGame (Game game) {
+        String path = "games/start/";
+        String json = new Gson().toJson(game, Game.class);
+
+        try {
+            put(json, path);
+        } catch (Exception ex) {
+            return null;
+        }
+        return null;
+    }
 
 
-}
+    }
+
+
+

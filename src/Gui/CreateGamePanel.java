@@ -90,7 +90,7 @@ public class CreateGamePanel extends JPanel {
         catch (IOException ex) {
         }
     }
-
+//getters
 public String getMovement() {
         Movement = JtxtMovement.getText();
         return Movement;
@@ -104,7 +104,7 @@ public String getMovement() {
 
 
 
-
+//action listeners for the buttons
     public void addActionListener (ActionListener l){
         btnCreateGame.addActionListener(l);
         btnCreateGame.setActionCommand("CreateGameBtn"); // adds actioncommand

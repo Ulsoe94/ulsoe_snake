@@ -32,6 +32,14 @@ public class GameMenu extends JPanel {
     public GameMenu() {
         setLayout(null);
 
+        //JLabels
+        lblWelcomeUser = new JLabel("Game Menu");
+        lblWelcomeUser.setFont(new Font("Raleway", Font.BOLD, 20));
+        lblWelcomeUser.setForeground(new Color(0, 200, 0));
+        lblWelcomeUser.setBounds(20, 34, 400, 35);
+        add(lblWelcomeUser);
+
+        //Jbuttons
         btnPlayGame = new JButton("Play Game");
         btnPlayGame.setBackground(Color.LIGHT_GRAY);
         btnPlayGame.setFont(new Font("Raleway", Font.PLAIN, 13));
@@ -67,11 +75,7 @@ public class GameMenu extends JPanel {
         btnLogOut.setActionCommand("Log out");
         add(btnLogOut);
 
-        lblWelcomeUser = new JLabel("Game Menu");
-        lblWelcomeUser.setFont(new Font("Raleway", Font.BOLD, 20));
-        lblWelcomeUser.setForeground(new Color(0, 200, 0));
-        lblWelcomeUser.setBounds(20, 34, 400, 35);
-        add(lblWelcomeUser);
+
 
         try // tries to load image
         {
@@ -88,7 +92,7 @@ public class GameMenu extends JPanel {
 
 
     }
-
+    //actionslisteners
     public void addActionListener(ActionListener l){
         btnPlayGame.addActionListener(l);
         btnPlayGame.setActionCommand("PlayBtn"); // adds actioncommand

@@ -16,7 +16,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     //final static Strings
     public static final String ADMINADD = "1";
     public static final String ADMINEDIT = "2";
-    public static final String ADMINSIDE = "3";
+    public static final String MOVEMENTPANEL = "3";
     public static final String LOGINPANEL = "4";
     public static final String CREATEGAMEPANEL = "5";
     public static final String GAMEMENU = "6";
@@ -36,6 +36,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     private DeletePanel deletePanel;
     private CreateGamePanel createGamePanel;
     private JoinGamePanel joinGamePanel;
+    private MovementPanel movementPanel;
 
 
     CardLayout c; //variabel for cardlayout
@@ -74,6 +75,9 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         highscorePanel = new HighscorePanel();
         contentPane.add(highscorePanel, HIGHSCOREPANEL);
 
+        movementPanel = new MovementPanel();
+        contentPane.add(movementPanel, MOVEMENTPANEL);
+
 
         c = (CardLayout) getContentPane().getLayout(); // cardlayoutet is set to contain of the different contentpanes
     } // constructor ends
@@ -95,9 +99,11 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         return playPanel;
     }
 
-    public CreateGamePanel getCreateGamePanel() { return createGamePanel; }
+    public CreateGamePanel getCreateGamePanel() {
+        return createGamePanel; }
 
-    public JoinGamePanel getJoinGamePanel() { return joinGamePanel; }
+    public JoinGamePanel getJoinGamePanel() {
+        return joinGamePanel; }
 
     public DeletePanel getDeletePanel() {
         return deletePanel;
@@ -106,6 +112,9 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     public HighscorePanel getHighscorePanel() {
         return highscorePanel;
     }
+
+    public MovementPanel getMovementPanel() {
+        return movementPanel; }
 
     /**
      * @param card
