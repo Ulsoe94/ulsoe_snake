@@ -12,14 +12,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Ulso on 19/11/15.
- */
+
 public class Snake {
 
 
     private Screen screen;
     private User thisuser;
+    private ServerConnection connection = new ServerConnection();
 
 
     public Snake() {
@@ -37,6 +36,7 @@ public class Snake {
         screen.getCreateGamePanel().addActionListener(new CreateGamePanelActionListener());
         screen.getJoinGamePanel().addActionListener(new JoinGamePanelActionListener());
         screen.getDeletePanel().addActionListener(new DeletePanelActionListener());
+        screen.getHighscorePanel().addActionListener(new HighscorePanelActionListener());
         screen.show(screen.LOGINPANEL);
 
     }
@@ -47,7 +47,6 @@ public class Snake {
 
         public void actionPerformed(ActionEvent e) // a method that runs when a Jbuttom as activated in the login-panel
         {
-            String cmd = e.getActionCommand(); // local string that saves actioncommand
 
             if (e.getSource() == screen.getLoginPanel().getBtnLogin()) {
 
@@ -126,22 +125,32 @@ public class Snake {
             if (cmd.equals("PlayBtn")) // if actioncommand is "PlayPanelBtn"
             {
                 screen.getPlayPanel();
-                screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
+                screen.show(Screen.PLAYPANEL); // PlayPanel is in the window
             } // if ends
             if (cmd.equals("DeletePanelBtn")) // if actioncommand is "DeleteGameBtn"
             {
                 screen.getDeletePanel();
                 screen.show(Screen.DELETEPANEL); // insertspanel sets in the window
             } // if slutter
-            if (cmd.equals("HighScoreBtn")) // hvis actioncommand er "WithdrawBtn"
+            if (cmd.equals("HighscoreBtn")) // if action command is "HighScoreBtn"
             {
-                screen.getHighscore();
-                screen.show(Screen.HIGHSCORE); // udtr�kningspanel s�ttes i vindue
+
+                Score[] highScores = connection.getHighscore();
+
+                screen.getHighscorePanel();
+                screen.show(Screen.HIGHSCOREPANEL); // Highscore sets in the window
+
+                screen.getHighscorePanel().highScoreTable(highScores);
+
+
+
+
+
             } // if ends
             if (cmd.equals("LogOutBtn")) // if actioncommand is "LogOutBtn"
             {
 
-                screen.getLoginPanel(); // reset method runs and removes labels from userpanel
+                screen.getLoginPanel(); //
                 screen.show(Screen.LOGINPANEL); // loginpanel sets in the window
             } // if ends
         } // Method ends
@@ -210,26 +219,26 @@ public class Snake {
         } // class ends.
 
     }
-        private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
-        {
-            public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
-            {
-                String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-                if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
-                {
-                    // paymentpanel is in the window
-                } // if ends
+    private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+            if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            {
+
 
                 if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
                 {
-                    //userAuthenticated = false; // brugerauthorization sets false
+
                     screen.getGameMenu(); // reset method runs and removes labels from userpanel
                     screen.show(Screen.GAMEMENU); // loginpanel sets in the window
                 } // if ends
             } // Method ends
         } // class ends.
-
+    }
 
         private class DeletePanelActionListener implements ActionListener // class that has actionlistener
         {
@@ -239,9 +248,8 @@ public class Snake {
 
                 if (cmd.equals("DeleteGameBtn")) // if actioncommand is "PlayPanelBtn"
                 {
-                    //screen.getGameMenu().reset();
-                    //screen.show(Screen.PLAYPANEL); // paymentpanel is in the window
-                } // if ends
+
+                }
 
                 if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
                 {
@@ -253,6 +261,29 @@ public class Snake {
         } // class ends.
 
 
+
+
+    private class HighscorePanelActionListener implements ActionListener // class that has actionlistener
+    {
+        public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
+        {
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+
+
+
+
+            if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            {
+                //userAuthenticated = false; // brugerauthorization sets false
+                screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+            } // if ends
+        } // Method ends
+    } // class ends.
+
+
+}
+
         /**if (response.getStatus() != 200 && response.getStatus() != 201){
          throw new RuntimeException("Failed : HTTP error code : "
          + response.getStatus());
@@ -260,7 +291,7 @@ public class Snake {
 
 
 
-}
+
 
 
 

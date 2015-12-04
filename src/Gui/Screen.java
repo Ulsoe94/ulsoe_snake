@@ -22,7 +22,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     public static final String GAMEMENU = "6";
     public static final String DELETEPANEL = "7";
     public static final String PLAYPANEL = "8";
-    public static final String HIGHSCORE = "9";
+    public static final String HIGHSCOREPANEL = "9";
     public static final String JOINGAMEPANEL = "10";
 
 
@@ -32,7 +32,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     private LoginPanel loginPanel;
     private GameMenu gameMenu;
     private PlayPanel playPanel;
-    private Highscore highscore;
+    private HighscorePanel highscorePanel;
     private DeletePanel deletePanel;
     private CreateGamePanel createGamePanel;
     private JoinGamePanel joinGamePanel;
@@ -71,8 +71,8 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         deletePanel = new DeletePanel();
         contentPane.add(deletePanel, DELETEPANEL);
 
-        highscore = new Highscore();
-        //contentPane.add(highscore, HIGHSCORE);
+        highscorePanel = new HighscorePanel();
+        contentPane.add(highscorePanel, HIGHSCOREPANEL);
 
 
         c = (CardLayout) getContentPane().getLayout(); // cardlayoutet is set to contain of the different contentpanes
@@ -103,8 +103,8 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         return deletePanel;
     }
 
-    public Highscore getHighscore() {
-        return highscore;
+    public HighscorePanel getHighscorePanel() {
+        return highscorePanel;
     }
 
     /**

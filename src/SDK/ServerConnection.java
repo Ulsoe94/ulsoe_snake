@@ -1,5 +1,6 @@
 package SDK;
 
+import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -22,6 +23,10 @@ public class ServerConnection {
         return hostAddress;
     }
 
+    public void setHostAddress(String hostAddress) {
+        this.hostAddress = hostAddress;
+    }
+
     public int getPort() {
         return port;
     }
@@ -29,20 +34,23 @@ public class ServerConnection {
 
 
 
-    public void get(String path){
+    public String get(String path){
 
         Client client = Client.create();
 
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
-        ClientResponse response = webResource.type("application/json").post(ClientResponse.class);
+        ClientResponse response = webResource.type("application/json").get(ClientResponse.class);
 
+        if (response.getStatus() != 200 && response.getStatus() != 201) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+        System.out.println(response);
 
-
-
-        String output = response.getEntity(String.class);
-        System.out.println(output);
-
+        return response.getEntity(String.class);
     }
+
+
     public ClientResponse post(String json, String path){
 
 
@@ -50,10 +58,46 @@ public class ServerConnection {
 
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
         ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json);
-
+        System.out.println(response);
 
         return response;
     }
 
+    private String put(String json, String path) {
+        Client client = Client.create();
 
-}
+        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
+        ClientResponse response = webResource.type("application/json").put(ClientResponse.class, json);
+
+        if (response.getStatus() != 200 && response.getStatus() != 201) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+
+        return response.getEntity(String.class);
+
+    }
+
+
+    
+
+
+    public  Score[] getHighscore() {
+        String path = "scores/";
+        String response;
+        try {
+            response = get(path);
+        } catch (Exception ex) {
+            return null;
+        }
+        Score[] scores = new Gson().fromJson(response, Score[].class);
+        return scores;
+
+    }
+
+
+
+
+
+
+    }

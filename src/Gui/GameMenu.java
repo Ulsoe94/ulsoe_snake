@@ -95,7 +95,7 @@ public class GameMenu extends JPanel {
         btnDeletePanel.addActionListener(l);
         btnDeletePanel.setActionCommand("DeletePanelBtn");
         btnSeeHighscore.addActionListener(l);
-        btnSeeHighscore.setActionCommand("SeeHighscoreBtn");
+        btnSeeHighscore.setActionCommand("HighscoreBtn");
         btnLogOut.addActionListener(l);
         btnLogOut.setActionCommand("LogOutBtn");
     }
