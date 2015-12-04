@@ -79,7 +79,25 @@ public class ServerConnection {
     }
 
 
-    
+    private String delete(String path){
+        Client client = Client.create();
+        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
+        ClientResponse response = webResource.type("application/json").delete(ClientResponse.class);
+
+        if (response.getStatus() != 200 && response.getStatus() != 201) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+
+        return response.getEntity(String.class);
+
+
+    }
+
+
+
+
+
 
 
     public  Score[] getHighscore() {
@@ -95,9 +113,17 @@ public class ServerConnection {
 
     }
 
-
-
-
-
-
+    public boolean deleteGame(String gameId){
+        String path ="games/"+gameId;
+        try {
+            delete(path);
+        }
+        catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
+
+
+
+}

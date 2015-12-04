@@ -84,7 +84,10 @@ import java.io.IOException;
             }
 
 
+
         }
+
+
 
 
         public void addActionListener(ActionListener l) {
@@ -93,6 +96,17 @@ import java.io.IOException;
             btnBack.addActionListener(l);
             btnBack.setActionCommand("BackBtn");
         }
+
+
+        public String getGameID()
+
+        {
+            return gameID.getText();
+
+        }
+
+
+
     }
 
 

@@ -174,9 +174,17 @@ public class Snake {
                 screen.getCreateGamePanel();
                 screen.show(Screen.CREATEGAMEPANEL);
             }
-        }
+            else if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            {
+                //userAuthenticated = false; // brugerauthorization sets false
+                screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+            } // if ends
+        } // Method ends
+    } // class ends.
 
-    }
+
+
 
     private class CreateGamePanelActionListener implements ActionListener // class that has actionlistener
     {
@@ -195,6 +203,7 @@ public class Snake {
                 game.setHost(host);
                 game.setMapSize(20);
 
+
                 String json = new Gson().toJson(game);
 
                 ServerConnection con = new ServerConnection();
@@ -203,22 +212,26 @@ public class Snake {
                 if (response.getStatus() == 201) {
                     System.out.println("Game created");
 
+                    JOptionPane.showMessageDialog(screen, "Game " + game.getName() + " was created succesfully");
+
 
                 }
                 if (response.getStatus() == 400) {
                     System.out.println("Something went wrong");
 
                 }
-                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
-                {
-                    //userAuthenticated = false; // brugerauthorization sets false
-                    screen.getGameMenu(); // reset method runs and removes labels from userpanel
-                    screen.show(Screen.GAMEMENU); // loginpanel sets in the window
-                } // if ends
+
+            }
+            else if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            {
+                //userAuthenticated = false; // brugerauthorization sets false
+                screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+            } // if ends
             } // Method ends
         } // class ends.
 
-    }
+
 
     private class JoinGamePanelActionListener implements ActionListener // class that has actionlistener
     {
@@ -248,6 +261,15 @@ public class Snake {
 
                 if (cmd.equals("DeleteGameBtn")) // if actioncommand is "PlayPanelBtn"
                 {
+                    String gameId = screen.getDeletePanel().getGameID();
+
+                    boolean success = connection.deleteGame(gameId);
+                    if (success) {
+                        JOptionPane.showMessageDialog(screen, "Game " + gameId + " was deleted succesfully");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(screen, "Game " + gameId + " could not be delete. Please try again.");
+                    }
 
                 }
 
