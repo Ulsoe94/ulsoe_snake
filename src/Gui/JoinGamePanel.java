@@ -14,10 +14,8 @@ public class JoinGamePanel extends JPanel {
 
     private JLabel lblJoinGamePanel;
     private JLabel lblEnterGameID;
-    //private JLabel lblEnterMovement;
     private JLabel lblBackground;
     private JTextField txtGameID;
-   // private JTextField txtMovement;
     private JButton btnProceed;
     private JButton btnBack;
 
@@ -37,12 +35,6 @@ public JoinGamePanel() {
     lblEnterGameID.setFont(new Font("Raleway", Font.PLAIN, 13));
     lblEnterGameID.setBounds(20, 175, 400, 34);
     add(lblEnterGameID);
-
-    /**lblEnterMovement = new JLabel("Enter Movement:");
-     lblEnterMovement.setForeground(new Color(0, 200, 0));
-     lblEnterMovement.setFont(new Font("Raleway", Font.PLAIN, 13));
-     lblEnterMovement.setBounds(20, 235, 400, 34);
-     add(lblEnterMovement);*/
 
 
     //JButtons
@@ -69,11 +61,6 @@ public JoinGamePanel() {
     txtGameID.setColumns(10);
     add(txtGameID);
 
-    /**txtMovement = new JTextField();
-     txtMovement.setFont(new Font("Raleway", Font.PLAIN, 13));
-     txtMovement.setBounds(20, 260, 170, 30);
-     txtMovement.setColumns(10);
-     add(txtMovement);*/
 
     try // tries to load image
     {
@@ -87,7 +74,7 @@ public JoinGamePanel() {
     }
 }
 
-
+//Henter det GameID, der bliver skrevet i textfieldet.
 public int getGameID() {
         int gameID = Integer.parseInt(txtGameID.getText());
         return gameID;

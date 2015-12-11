@@ -1,10 +1,11 @@
-package SDK;
+package Logic;
 
 /**
  * Created by Ulso on 23/11/15.
  */
 
 import Gui.Screen;
+import SDK.*;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientResponse;
 
@@ -21,15 +22,14 @@ public class Snake {
     private ServerConnection connection = new ServerConnection();
 
 
-    public Snake() {
+    public Snake() { //the constructor Snake
 
         screen = new Screen();
         screen.setVisible(true);
     }
 
-
+    //method Run that adds ActionListeners for each panel
     public void run() {
-
         screen.getLoginPanel().addActionlistener(new LoginPanelActionListener());
         screen.getGameMenu().addActionListener(new GameMenuActionListener());
         screen.getPlayPanel().addActionListener(new PlayPanelActionListener());
@@ -41,23 +41,20 @@ public class Snake {
         screen.show(screen.LOGINPANEL);
 
     }
-
-    private class LoginPanelActionListener implements ActionListener // Class that implements actionListeners
+    // Class that implements actionListeners for LoginPanel
+    private class LoginPanelActionListener implements ActionListener
     {
         boolean authenticated = false;
 
-        public void actionPerformed(ActionEvent e) // a method that runs when a Jbuttom as activated in the login-panel
+        public void actionPerformed(ActionEvent e) // a method that runs when a Jbuttom is activated
         {
+            String cmd = e.getActionCommand(); // local string that saves actioncommand
+            if (cmd.equals("LoginBtn"));
+            {
+                String username = screen.getLoginPanel().getUsername(); //Gets the entered Username from loginpanel
+                String password = screen.getLoginPanel().getPassword(); //Gets the entered Password from loginpanel
 
-            if (e.getSource() == screen.getLoginPanel().getBtnLogin()) {
-
-
-                String username = screen.getLoginPanel().getUsername();
-                String password = screen.getLoginPanel().getPassword();
-
-                thisuser = new User();
-
-
+                thisuser = new User(); //
                 thisuser.setUsername(username);
                 thisuser.setPassword(password);
 
@@ -66,26 +63,24 @@ public class Snake {
                 ServerConnection con = new ServerConnection();
                 ClientResponse response = con.post(json, "login");
 
-                if (response.getStatus() == 200) {
-                    authenticated = true;
+                if (response.getStatus() == 200) { //If server response is 200
+
+                    authenticated = true; //authentication is set to true
                     System.out.println("User validated");
                     JOptionPane.showMessageDialog(screen, "Successful Login");
                     screen.show(Screen.GAMEMENU);
 
                 }
-                if (response.getStatus() == 500) {
+                if (response.getStatus() == 500) { //if server reponse is 500
 
-                    authenticated = false;
+                    authenticated = false; //authenication is set to false
                     System.out.println("Bad request");
-
-
-
                     JOptionPane.showMessageDialog(screen, "Please sumbit both Email and password", "Error", JOptionPane.ERROR_MESSAGE);
                     screen.show(Screen.LOGINPANEL);
                 }
-                if (response.getStatus() == 400) {
+                if (response.getStatus() == 400) { //if server respons is 400
 
-                    authenticated = false;
+                    authenticated = false; //authentication is set to false
                     System.out.println("Unauthorized");
                     JOptionPane.showMessageDialog(screen, "You have entered either a wrong username og password. Please try again", "Error", JOptionPane.ERROR_MESSAGE);
                     screen.show(Screen.LOGINPANEL);
@@ -94,28 +89,6 @@ public class Snake {
 
 
             }
-            /**authenticateuser(); // runs the method authenticate user
-             screen.getLoginSide().reset(); // resets labels at loginpanel
-
-             if(userAuthenticated) // If a user is authorized
-             {
-             screen.getGameMenu().setName(dbconn.getFirstname(), dbconn.getLastname()); // Attach names on userpanel
-             screen.show(Screen.GAMEMENU); // Attach userpanel in the window
-             } // if slutter
-             if(adminAuthenticated) // If an Admin is authorized
-             {
-             screen.getAdminSide().setRate(dbconn.getRate()); // Sets the rate
-             screen.show(Screen.ADMINSIDE); // Attach adminpanel to the window
-             } // if slutter
-             if(recipientAuthenticated) // If the Recipent is authorized
-             {
-             screen.getRecipientSide().setName(dbconn.getRecipient()); // Sets name at RecipientPanel
-             screen.show(Screen.RECIPIENTSIDE); // Attach recipentpanel in the window
-             } // if slutter
-             if(!adminAuthenticated && !userAuthenticated && !recipientAuthenticated) // If none of the usertypes are authorized
-             {
-             screen.getLoginPanel().incorrect(); // running the method incorrect
-             } // if ends*/
 
         }
     } // method ends
@@ -138,14 +111,8 @@ public class Snake {
             } // if slutter
             if (cmd.equals("HighscoreBtn")) // if action command is "HighScoreBtn"
             {
-
-                Score[] highScores = connection.Highscore();
-
                 screen.getHighscorePanel();
                 screen.show(Screen.HIGHSCOREPANEL); // Highscore sets in the window
-
-                screen.getHighscorePanel().highScoreTable(highScores);
-
 
             } // if ends
             if (cmd.equals("LogOutBtn")) // if actioncommand is "LogOutBtn"
@@ -164,21 +131,21 @@ public class Snake {
         {
             String cmd = e.getActionCommand();
 
-            if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+            if (cmd.equals("JoinGameBtn")) // if actioncommand is "JoinGameBtn"
             {
                 screen.getJoinGamePanel();
                 screen.show(Screen.JOINGAMEPANEL);
 
             }
-            if (cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+            if (cmd.equals("CreateGameBtn")) // if actioncommand is "CreateGameBtn"
             {
                 screen.getCreateGamePanel();
                 screen.show(Screen.CREATEGAMEPANEL);
-            } else if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+            } else if (cmd.equals("BackBtn")) // if actioncommand is "BackBtn"
             {
-                //userAuthenticated = false; // brugerauthorization sets false
-                screen.getGameMenu(); // reset method runs and removes labels from userpanel
-                screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+
+                screen.getGameMenu();
+                screen.show(Screen.GAMEMENU); // GameMenu sets in the window
             } // if ends
         } // Method ends
     } // class ends.
@@ -190,25 +157,29 @@ public class Snake {
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-            if (cmd.equals("CreateGameBtn")) // if actioncommand is "PlayPanelBtn"
+            if (cmd.equals("CreateGameBtn")) // if actioncommand is "CreateGame"
             {
-                Gamer host = new Gamer();
-                host.setId(thisuser.getId());
-                host.setControls(screen.getCreateGamePanel().getMovement());
+                Gamer host = new Gamer(); //Sets host as new Gamer()
+                host.setId(thisuser.getId()); //gets the thisuser's Id and sets it as the host
+                host.setControls(screen.getCreateGamePanel().getMovement()); //Gets the movements and sets ii for the host
 
-                Game game = new Game();
-                game.setName(screen.getCreateGamePanel().getGameName());
-                game.setHost(host);
-                game.setMapSize(20);
+                Game game = new Game(); //sets game as new Game();
+                game.setName(screen.getCreateGamePanel().getGameName()); //sets the game name from the txtfield.
+                game.setHost(host); //sets the host as host.
+                game.setMapSize(20); //sets the map size
 
 
-                String json = new Gson().toJson(game);
+                String data = new Gson().toJson(game); //String data
 
                 ServerConnection con = new ServerConnection();
-                ClientResponse response = con.post(json, "games");
+                ClientResponse response = con.post(data, "games"); //response gets requested to post to the server
 
-                if (response.getStatus() == 201) {
-                    System.out.println("Game created");
+
+
+
+
+                    if (response.getStatus() == 201) { //if the server response is 201
+                    System.out.println("Game created"); //a game is created.
 
                     JOptionPane.showMessageDialog(screen, "Game " + game.getName() + " was created succesfully");
                     screen.getGameMenu();
@@ -216,8 +187,8 @@ public class Snake {
 
 
                 }
-                if (response.getStatus() == 400) {
-                    System.out.println("Something went wrong");
+                if (response.getStatus() == 400) { //howeever if its 400
+                    System.out.println("Something went wrong"); //shit just gone bad!
                     JOptionPane.showMessageDialog(screen, "CALL 911 NOOOOOW!!!!!!", "Error", JOptionPane.ERROR_MESSAGE);
 
 
@@ -225,7 +196,7 @@ public class Snake {
 
             } else if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
             {
-                //userAuthenticated = false; // brugerauthorization sets false
+
                 screen.getGameMenu(); // reset method runs and removes labels from userpanel
                 screen.show(Screen.GAMEMENU); // loginpanel sets in the window
             } // if ends
@@ -239,78 +210,61 @@ public class Snake {
         {
             String cmd = e.getActionCommand(); // local string that saves actioncommand
 
+            int gameID = screen.getJoinGamePanel().getGameID();
+
 
             Gamer opponent = new Gamer();
             opponent.setId(1);
 
             Game game = new Game();
             game.setOpponent(opponent);
+            game.setGameId(gameID);
 
 
             if (cmd.equals("ProceedBtn")) // if actioncommand is "PlayPanelBtn"
             {
-                try {
+                boolean join = connection.joinGame(game);
 
+                if (join) {
+                    screen.getMovementPanel();
+                    screen.show(Screen.MOVEMENTPANEL);
+                    JOptionPane.showMessageDialog(screen, "succesfully joined: Game " + gameID);
 
-                    boolean join = connection.joinGame(game);
-                    int gameID = screen.getJoinGamePanel().getGameID();
-                    game.setGameId(gameID);
-
-
-                    if (join) {
-                        screen.getMovementPanel();
-                        screen.show(Screen.MOVEMENTPANEL);
-                        JOptionPane.showMessageDialog(screen, "succesfully joined" + gameID);
-
-
-                    } else {
-                        JOptionPane.showMessageDialog(screen, "Failed to join game", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
-
-
-
-
-
-                } catch (NumberFormatException g) {
-                    JOptionPane.showMessageDialog(screen, "The Game ID must be a number", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                // Method ends
-            } if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
-        {
 
-            screen.getGameMenu(); // reset method runs and removes labels from userpanel
-            screen.show(Screen.GAMEMENU); // loginpanel sets in the window
-        } // if ends
-            // class ends.
+                // Method ends
+                else if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                {
+
+                    screen.getGameMenu(); // reset method runs and removes labels from userpanel
+                    screen.show(Screen.GAMEMENU); // loginpanel sets in the window
+                } // if ends
+                // class ends.
+            }
         }
     }
-
         private class MovementPanelActionListener implements ActionListener // class that has actionlistener
         {
             public void actionPerformed(ActionEvent e) // method that runs when a button is pressed in the user panel
             {
 
-                int gameID = screen.getJoinGamePanel().getGameID();
+                int gameID = screen.getJoinGamePanel().getGameID(); //int GameID that gets the Gameid
                 Gamer opponent = new Gamer();
-                opponent.setId(1);
-                opponent.setControls(screen.getMovementPanel().getMovement());
+                opponent.setControls(screen.getMovementPanel().getMovement()); //sets opponent controls
 
                 Game game = new Game();
-                game.setOpponent(opponent);
-                game.setGameId(gameID);
+                game.setOpponent(opponent); //sets opponent
+                game.setGameId(gameID); //sets GameId
 
                 String cmd = e.getActionCommand(); // local string that saves actioncommand
 
-                if (cmd.equals("JoinGameBtn")) // if actioncommand is "PlayPanelBtn"
+                if (cmd.equals("JoinGameBtn")) // if actioncommand is "JoinGameBtn"
                 {
                     connection.startGame(game);
-
-
                     screen.show(Screen.GAMEMENU);
                 }
 
-                if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
+                if (cmd.equals("BackBtn")) // if actioncommand is "BackBtn"
                 {
 
                     screen.getGameMenu(); // reset method runs and removes labels from userpanel
@@ -330,7 +284,7 @@ public class Snake {
                 {
                     String gameId = screen.getDeletePanel().getGameID();
 
-                    boolean success = connection.deleteGame(gameId);
+                    boolean success = connection.deleteGame(gameId); //boolean succes
                     if (success) {
                         JOptionPane.showMessageDialog(screen, "Game " + gameId + " was deleted succesfully");
                     } else {
@@ -341,7 +295,7 @@ public class Snake {
 
                 if (cmd.equals("BackBtn")) // if actioncommand is "LogOutBtn"
                 {
-                    //userAuthenticated = false; // brugerauthorization sets false
+
                     screen.getGameMenu(); // reset method runs and removes labels from userpanel
                     screen.show(Screen.GAMEMENU); // loginpanel sets in the window
                 } // if ends
@@ -376,14 +330,6 @@ public class Snake {
         } // class ends
     }
 
-
-
-
-
-        /**if (response.getStatus() != 200 && response.getStatus() != 201){
-         throw new RuntimeException("Failed : HTTP error code : "
-         + response.getStatus());
-         }*/
 
 
 

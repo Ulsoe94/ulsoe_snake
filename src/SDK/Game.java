@@ -10,7 +10,6 @@ public class Game {
     private String name;
     private Gamer host;
     private Gamer opponent;
-    private String status;
     private java.sql.Date created;
     private int mapSize;
 
@@ -25,9 +24,7 @@ public class Game {
         this.created = created;
     }
 
-    public int getMapSize() {
-        return mapSize;
-    }
+
 
     public void setMapSize(int mapSize) {
         this.mapSize = mapSize;
@@ -49,9 +46,6 @@ public class Game {
         this.gameId = gameId;
     }
 
-    public Gamer getHost(){
-        return host;
-    }
 
     public void setHost(Gamer host){
         this.host = host;
@@ -65,19 +59,4 @@ public class Game {
         this.opponent = opponent;
     }
 
-    public String getStatus(){
-        return status;
-    }
-
-    public void setStatus(String status){
-        this.status = status;
-    }
-
-    public Gamer getWinner() {
-        return winner;
-    }
-
-    public void setWinner(Gamer winner) {
-        this.winner = winner;
-    }
 } //end of class

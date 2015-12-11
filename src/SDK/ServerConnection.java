@@ -10,15 +10,15 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class ServerConnection {
 
-    public ServerConnection(){
-        this.hostAddress = "http://localhost";
-        this.port = 8888;
-    }
-
     private String hostAddress;
     private int port;
 
+    public ServerConnection(){ //constructor for ServerConnection
+        hostAddress = "http://localhost";
+        port = 8888;
+    }
 
+    //getters
     public String getHostAddress() {
         return hostAddress;
     }
@@ -30,14 +30,14 @@ public class ServerConnection {
 
 
     //Method get.
-    public String get(String path){
+        public String get(String path){
 
-        Client client = Client.create();
+            Client client = Client.create(); //Creating an instance to a web Resource hosted at the below URI
+            WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path); //The URI
 
-        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
-        ClientResponse response = webResource.type("application/json").get(ClientResponse.class);
+            ClientResponse response = webResource.type("application/json").get(ClientResponse.class); //Response set to JSON data.
 
-        if (response.getStatus() != 200 && response.getStatus() != 201) {
+        if (response.getStatus() != 200 && response.getStatus() != 201) { //if statement for serverstatus 200 & 201
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
@@ -47,55 +47,64 @@ public class ServerConnection {
     }
 
 
+
+
     //method post
     public ClientResponse post(String json, String path){
 
-        Client client = Client.create();
+        Client client = Client.create();//Creating an instance to a web Resource hosted at the below URI
+        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path); //THe URI
 
-        WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
-        ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json);
+        ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json);//Response set to JSON data.
+
         System.out.println(response);
-
         return response;
     }
 
     //method put
     public String put(String json, String path) {
-        Client client = Client.create();
-
+        Client client = Client.create();//Creating an instance to a web Resource hosted at the below URL
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
-        ClientResponse response = webResource.type("application/json").put(ClientResponse.class, json);
 
-        if (response.getStatus() != 200 && response.getStatus() != 201) {
+        ClientResponse response = webResource.type("application/json").put(ClientResponse.class, json); //Response set to JSON data.
+
+
+
+        if (response.getStatus() != 200 && response.getStatus() != 201) { //if statement for serverstatus 200 & 201
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
-
+        System.out.println(response.getStatus());
         return response.getEntity(String.class);
 
     }
 
     //method delete
     public String delete(String path){
-        Client client = Client.create();
+        Client client = Client.create();//Creating an instance to a web Resource hosted at the below URI
         WebResource webResource = client.resource(getHostAddress() + ":" + getPort() + "/api/" + path);
-        ClientResponse response = webResource.type("application/json").delete(ClientResponse.class);
 
-        if (response.getStatus() != 200 && response.getStatus() != 201) {
+        ClientResponse response = webResource.type("application/json").delete(ClientResponse.class);//Response set to JSON data.
+
+
+
+
+        if (response.getStatus() != 200 && response.getStatus() != 201) { //if statement for serverstatus 200 & 201
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
-
+        System.out.println(response);
         return response.getEntity(String.class);
 
 
     }
 
+    //method joinGame
     public boolean joinGame(Game game){
-        String path = "games/join/";
-        String data = new Gson().toJson(game, Game.class);
+        String path = "games/join/"; //Path specified for the URI
+        String data = new Gson().toJson(game, Game.class); //data converted to json
 
-        try {
+        try { //try statement
             put(data, path);
         }
         catch ( Exception ex) {
@@ -106,22 +115,25 @@ public class ServerConnection {
 
 
 
-    //method getHighscore
+
+
+    //method Highscore
     public  Score[] Highscore() {
-        String path = "scores/";
-        String response;
+        String path = "scores/"; //Path specified for the URI
+        String response; //String response
         try {
             response = get(path);
         } catch (Exception ex) {
             return null;
         }
-        Score[] scores = new Gson().fromJson(response, Score[].class);
+        Score[] scores = new Gson().fromJson(response, Score[].class); //data from response converted to Gson
         return scores;
 
     }
 
+    //method deleteGame
     public boolean deleteGame(String gameId){
-        String path ="games/"+gameId;
+        String path ="games/"+gameId; //Path specified for the URI
         try {
             delete(path);
         }
@@ -131,12 +143,13 @@ public class ServerConnection {
         return true;
     }
 
+    //method startGame
     public Game startGame (Game game) {
-        String path = "games/start/";
-        String json = new Gson().toJson(game, Game.class);
+        String path = "games/start/"; //Path specified for the URI
+        String data = new Gson().toJson(game, Game.class); //data converted to json
 
         try {
-            put(json, path);
+            put(data, path);
         } catch (Exception ex) {
             return null;
         }

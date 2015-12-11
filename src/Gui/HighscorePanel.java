@@ -97,7 +97,7 @@ public class HighscorePanel extends JPanel {
 
     }
 
-    //MANGLER KOMMENTAR!!!!!!
+    //method that gets the information from the class Score and attachs it to the highscore table.
     public void highScoreTable(Score[] scores) {
         DefaultTableModel model = (DefaultTableModel) tblHighscore.getModel();
 
@@ -105,6 +105,8 @@ public class HighscorePanel extends JPanel {
             model.addRow(new Object[]{score.getUser().getUsername(), score.getScore()});
         }
     }
+
+    //method that clears the highscore panel for information.
     public void clearHighscore() {
        DefaultTableModel model = (DefaultTableModel) tblHighscore.getModel();
        model.setRowCount(0);

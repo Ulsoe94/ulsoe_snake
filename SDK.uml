@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>SDK</OriginalElement>
+  <nodes>
+    <node x="-79.66666666666652" y="-21.66666666666667">SDK.ServerConnection</node>
+    <node x="-413.5" y="343.6666666666667">SDK.Gamer</node>
+    <node x="91.66666666666663" y="332.6666666666666">SDK.Game</node>
+    <node x="-455.99999999999994" y="23.33333333333333">SDK.User</node>
+    <node x="-169.16666666666663" y="678.6666666666666">SDK.Score</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="SDK.Score" target="SDK.Game">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="SDK.Game" target="SDK.Gamer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="SDK.Gamer" target="SDK.User">
+      <point x="0.0" y="-69.5" />
+      <point x="0.0" y="113.5" />
+    </edge>
+    <edge source="SDK.Score" target="SDK.Gamer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="-166.66666666666674" y="396.6666666666666" />
+  <SelectedNodes>
+    <node>SDK.ServerConnection</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

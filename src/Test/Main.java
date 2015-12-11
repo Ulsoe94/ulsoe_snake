@@ -1,6 +1,6 @@
 package Test;
 
-import SDK.Snake;
+import Logic.Snake;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class Main
 
             public static void main(String args[]) throws IOException {
 
-                new Snake().run(); // run method in BCBS
+                new Snake().run(); // run method in Snake
 
                 
 

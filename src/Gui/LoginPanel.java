@@ -19,7 +19,6 @@ public class LoginPanel extends JPanel {
     private JLabel lblStudentid;
     private JLabel lblPassword;
     private JLabel lblBackground;
-    private JLabel lblIncorrect;
     private JLabel madeBy;
     private JTextField username;
     private JPasswordField passwordField;
@@ -79,12 +78,6 @@ public class LoginPanel extends JPanel {
         btnLogin.setActionCommand("Login");
         add(btnLogin);
 
-        lblIncorrect = new JLabel();
-        lblIncorrect.setFont(new Font("Raleway", Font.BOLD, 13));
-        lblIncorrect.setBounds(125, 189, 200, 40);
-        lblIncorrect.setForeground(new Color(255, 0, 0));
-        add(lblIncorrect);
-
 
         try // tries to load image
         {
@@ -97,19 +90,18 @@ public class LoginPanel extends JPanel {
         catch (IOException ex) {
         }
 
-    }
 
-    //adds music to the background
-    /**
-     * try {
-     * File file = new File("/Users/Ulso/Documents/window builder/src/Pictures/Bam.wav");
-     * Clip clip = AudioSystem.getClip();
-     * clip.open(AudioSystem.getAudioInputStream(file));
-     * clip.start();
-     * } catch (Exception e) {
-     * System.err.println(e.getMessage());
-     * }
-     */
+        //adds music to the background
+
+       /** try {
+            File file = new File("/Users/Ulso/Documents/window builder/src/Pictures/Bam.wav");
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(file));
+            clip.start();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }*/
+    }
 
 
     //Actionlisteners
@@ -120,16 +112,6 @@ public class LoginPanel extends JPanel {
 
     }
 
-    // method to show labels
-    /**public void incorrect()
-
-     {
-     lblIncorrect.setVisible(true);
-
-     }*/
-    /**
-     * @return UserName_Login.getText()
-     */
 
     // getters
     public String getUsername()
@@ -145,9 +127,7 @@ public class LoginPanel extends JPanel {
         return passwordField.getText();
     }
 
-    public JButton getBtnLogin() {
-        return btnLogin;
-    }
+
 
 }
 

@@ -14,8 +14,6 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
     private static final long serialVersionUID = 1L; // generated ID
 
     //final static Strings
-    public static final String ADMINADD = "1";
-    public static final String ADMINEDIT = "2";
     public static final String MOVEMENTPANEL = "3";
     public static final String LOGINPANEL = "4";
     public static final String CREATEGAMEPANEL = "5";
@@ -80,7 +78,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
 
 
         c = (CardLayout) getContentPane().getLayout(); // cardlayoutet is set to contain of the different contentpanes
-    } // constructor ends
+    }
 
 
     // getters and setters
@@ -124,7 +122,7 @@ public class Screen extends JFrame // Gui.Screen class that extender JFrame
         c.show(getContentPane(), card); // cardlayout shiws the contentpane that it recieves
 
 
-    } // method ends
+    }
 }
 
 

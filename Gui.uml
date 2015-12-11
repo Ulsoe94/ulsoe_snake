@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Gui</OriginalElement>
+  <nodes>
+    <node x="-42.85714285714283" y="320.8571428571429">Gui.MovementPanel</node>
+    <node x="607.0" y="492.28571428571433">Gui.JoinGamePanel</node>
+    <node x="-48.57142857142857" y="120.71428571428572">Gui.HighscorePanel</node>
+    <node x="268.57142857142856" y="159.99999999999997">Gui.Screen</node>
+    <node x="660.8571428571429" y="272.28571428571433">Gui.DeletePanel</node>
+    <node x="340.8571428571429" y="500.42857142857144">Gui.PlayPanel</node>
+    <node x="314.5714285714285" y="-19.28571428571426">Gui.LoginPanel</node>
+    <node x="57.14285714285711" y="500.4285714285715">Gui.GameMenu</node>
+    <node x="647.1428571428571" y="98.57142857142853">Gui.CreateGamePanel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Gui.Screen" target="Gui.MovementPanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.JoinGamePanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.DeletePanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.LoginPanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.PlayPanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.CreateGamePanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.HighscorePanel">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Gui.Screen" target="Gui.GameMenu">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="567.8571428571428" y="310.4285714285714" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

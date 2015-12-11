@@ -74,7 +74,7 @@ public class MovementPanel extends JPanel {
         }
     }
 
-
+//Gets the movements inserted in the textfield
 public String getMovement() {
     movement = txtMovement.getText();
     return movement;
@@ -82,7 +82,7 @@ public String getMovement() {
 
 
 
-
+    //actionlisteners
     public void addActionListener (ActionListener l){
         btnJoinGame.addActionListener(l);
         btnJoinGame.setActionCommand("JoinGameBtn"); // adds actioncommand
